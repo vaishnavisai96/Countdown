@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Countdown to Arrival</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: linear-gradient(to bottom, #87CEFA, #ffffff);
+            overflow: hidden;
+        }
+        h1 {
+            margin-top: 50px;
+            font-size: 2.5em;
+        }
+        .countdown {
+            font-size: 2em;
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .map {
+            position: relative;
+            width: 100%;
+            height: 300px;
+            margin-top: 50px;
+            background: url('https://www.google.com/search?sca_esv=e8c05aba066cb726&rlz=1C5CHFA_enIN1082IN1082&sxsrf=ADLYWIInNGIl4wbT5DWTk3af7ActBgcPpw:1731547815121&q=world+map&udm=2&fbs=AEQNm0Aa4sjWe7Rqy32pFwRj0UkWd8nbOJfsBGGB5IQQO6L3J3ppPdoHI1O-XvbXbpNjYYxFVL5zun8yyEdOJUsGTW1aYBO9o4e4gKDO0GJkZ61lgfC2glItUWFMcsmSG7p6Jueov3sN17Uy4BQ_-Jiar2QnJjByldTy8Q2KHBHbSlZn4tBSNJ7YE1QVB0zDpISpfHdfoRDCCgcHsWyL6FBZpQmJH9ElZw&sa=X&ved=2ahUKEwje-7mj1tqJAxVXzDgGHQsXOJIQtKgLegQIEBAB&biw=1600&bih=864&dpr=1.8#vhid=YPVIGNoxWPCrLM&vssid=mosaic') center no-repeat;
+            background-size: cover;
+        }
+        .airplane {
+            position: absolute;
+            top: 100px;
+            left: 10px;
+            font-size: 2em;
+            animation: movePlane 30s linear infinite;
+        }
+        @keyframes movePlane {
+            0% { left: 10px; }
+            100% { left: 90%; }
+        }
+    </style>
+</head>
+<body>
+    <h1>Countdown to His Arrival</h1>
+    <div id="countdown" class="countdown"></div>
+    <div class="map">
+        <div class="airplane">✈️</div>
+    </div>
+    <script>
+        const arrivalDate = new Date();
+        arrivalDate.setDate(arrivalDate.getDate() + 30);
+        const countdownTimer = setInterval(() => {
+            const now = new Date().getTime();
+            const distance = arrivalDate - now;
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+            if (distance < 0) {
+                clearInterval(countdownTimer);
+                document.getElementById("countdown").innerHTML = "He's here!";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
